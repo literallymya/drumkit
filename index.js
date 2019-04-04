@@ -13,7 +13,27 @@ function handleClick() {
 
   var buttonInnerHTML = this.innerHTML;
 
-  switch (buttonInnerHTML) {
+  makeSound(buttonInnerHTML);
+
+  buttonAnimation(buttonInnerHTML);
+
+};
+
+//when you press keys, drum sounds!
+
+document.addEventListener("keydown", function(event) {
+
+  makeSound(event.key);
+
+  buttonAnimation(event.key);
+
+});
+
+// function for "making sound"
+
+function makeSound(key) {
+
+  switch (key) {
     case "w":
       var tom1 = new Audio('sounds/tom-1.mp3');
       tom1.play();
@@ -49,20 +69,35 @@ function handleClick() {
       crash.play();
       break;
 
-
-    default: console.log(buttonInnerHTML);
-
+      default: console.log(buttonInnerHTML);
   }
 }
 
-//
+//button animation
+
+function buttonAnimation(currentKey) {
+
+  var activeButton = document.querySelector("." + currentKey);
+
+  activeButton.classList.add("pressed");
+
+  setTimeout(function() {
+    activeButton.classList.remove("pressed");
+  }, 100);
+
+}
+
+// method and object practice
 
 function HouseKeeper(yearsOfExp, name, cleaningRep) {
   this.yearsOfExp = yearsOfExp;
   this.name = name;
   this.cleaningRep = cleaningRep;
+  this.clean = function() {
+    alert("cleaning in progress");
+  }
 }
 
 var houseKeeper1 = new HouseKeeper(12, "Tom", ["lobby", "bedroom"]);
 
-console.log(houseKeeper1.name);
+var houseKeeper2 = new HouseKeeper(9, "Sarah", ["bathroom"]);
